@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài Tập Về Nhà - JavaScript</title>
+    <style>
+      /* CSS remains unchanged */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .exercises {
+        padding: 30px;
+      }
+
+      .exercise {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border-left: 5px solid #007bff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .exercise:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .exercise h3 {
+        color: #007bff;
+        margin-bottom: 20px;
+        font-size: 1.4em;
+      }
+
+      .input-group {
+        margin-bottom: 15px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .input-group input,
+      .input-group select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .input-group input:focus,
+      .input-group select:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        margin: 10px 5px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .result {
+        background: #e8f5e8;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #155724;
+      }
+
+      .result.error {
+        background: #f8d7da;
+        border-color: #dc3545;
+        color: #721c24;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .table th {
+        background: #007bff;
+        color: white;
+      }
+
+      .table tr:nth-child(even) {
+        background: #f8f9fa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🏠 Bài Tập Về Nhà</h1>
+        <p>JavaScript Programming Exercises</p>
+      </div>
+
+      <div class="exercises">
+        <!-- Exercise 1: Student Management -->
+        <div class="exercise">
+          <h3>📚 Bài 1: Quản Lý Tuyển Sinh</h3>
+          <p>
+            <strong>Mô tả:</strong> Tính điểm tổng kết và xét tuyển sinh dựa
+            trên điểm 3 môn thi, điểm ưu tiên khu vực và đối tượng.
+          </p>
+
+          <div class="grid">
+            <div>
+              <div class="input-group">
+                <label>Điểm chuẩn:</label>
+                <input
+                  type="number"
+                  id="diemChuan"
+                  value="20"
+                  min="0"
+                  max="30"
+                />
+              </div>
+              <div class="input-group">
+                <label>Điểm môn 1:</label>
+                <input type="number" id="diem1" min="0" max="10" step="0.1" />
+              </div>
+              <div class="input-group">
+                <label>Điểm môn 2:</label>
+                <input type="number" id="diem2" min="0" max="10" step="0.1" />
+              </div>
+              <div class="input-group">
+                <label>Điểm môn 3:</label>
+                <input type="number" id="diem3" min="0" max="10" step="0.1" />
+              </div>
+            </div>
+            <div>
+              <div class="input-group">
+                <label>Khu vực:</label>
+                <select id="khuVuc">
+                  <option value="A">Khu vực A (2 điểm)</option>
+                  <option value="B">Khu vực B (1 điểm)</option>
+                  <option value="C">Khu vực C (0.5 điểm)</option>
+                  <option value="X">Khu vực X (0 điểm)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Đối tượng:</label>
+                <select id="doiTuong">
+                  <option value="1">Đối tượng 1 (2.5 điểm)</option>
+                  <option value="2">Đối tượng 2 (1.5 điểm)</option>
+                  <option value="3">Đối tượng 3 (1 điểm)</option>
+                  <option value="0">Không có (0 điểm)</option>
+                </select>
+              </div>
+              <button class="btn" onclick="tinhDiemTuyenSinh()">
+                Tính Điểm
+              </button>
+            </div>
+          </div>
+          <div id="ketQuaTuyenSinh"></div>
+        </div>
+
+        <!-- Exercise 2: Electricity Bill -->
+        <div class="exercise">
+          <h3>⚡ Bài 2: Tính Tiền Điện</h3>
+          <p>
+            <strong>Mô tả:</strong> Tính tiền điện theo bậc thang dựa trên số KW
+            tiêu thụ.
+          </p>
+
+          <div class="input-group">
+            <label>Tên khách hàng:</label>
+            <input
+              type="text"
+              id="tenKhachHang"
+              placeholder="Nhập tên khách hàng"
+            />
+          </div>
+          <div class="input-group">
+            <label>Số KW tiêu thụ:</label>
+            <input type="number" id="soKW" min="0" placeholder="Nhập số KW" />
+          </div>
+          <button class="btn" onclick="tinhTienDien()">Tính Tiền Điện</button>
+
+          <div
+            class="result"
+            style="
+              margin-top: 15px;
+              background: #e3f2fd;
+              border-color: #2196f3;
+              color: #0d47a1;
+            "
+          >
+            <strong>Bảng giá:</strong>
+            <table class="table" style="margin-top: 10px">
+              <tr>
+                <th>Bậc</th>
+                <th>Số KW</th>
+                <th>Giá (VNĐ/KW)</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>50 KW đầu</td>
+                <td>500</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>50 KW kế</td>
+                <td>650</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>100 KW kế</td>
+                <td>850</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>150 KW kế</td>
+                <td>1,100</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Còn lại</td>
+                <td>1,300</td>
+              </tr>
+            </table>
+          </div>
+          <div id="ketQuaTienDien"></div>
+        </div>
+
+        <!-- Exercise 3: Income Tax -->
+        <div class="exercise">
+          <h3>💰 Bài 3: Tính Thuế Thu Nhập Cá Nhân</h3>
+          <p>
+            <strong>Mô tả:</strong> Tính thuế thu nhập cá nhân dựa trên thu nhập
+            chịu thuế và số người phụ thuộc.
+          </p>
+
+          <div class="grid">
+            <div>
+              <div class="input-group">
+                <label>Họ tên:</label>
+                <input type="text" id="hoTen" placeholder="Nhập họ tên" />
+              </div>
+              <div class="input-group">
+                <label>Tổng thu nhập năm (triệu VNĐ):</label>
+                <input
+                  type="number"
+                  id="tongThuNhap"
+                  min="0"
+                  placeholder="Nhập tổng thu nhập"
+                />
+              </div>
+              <div class="input-group">
+                <label>Số người phụ thuộc:</label>
+                <input type="number" id="soNguoiPhuThuoc" min="0" value="0" />
+              </div>
+              <button class="btn" onclick="tinhThue()">Tính Thuế</button>
+            </div>
+            <div>
+              <div
+                class="result"
+                style="
+                  background: #fff3cd;
+                  border-color: #ffc107;
+                  color: #856404;
+                "
+              >
+                <strong>Bảng thuế suất:</strong>
+                <table class="table" style="margin-top: 10px">
+                  <tr>
+                    <th>Thu nhập chịu thuế (triệu)</th>
+                    <th>Thuế suất (%)</th>
+                  </tr>
+                  <tr>
+                    <td>Đến 60</td>
+                    <td>5%</td>
+                  </tr>
+                  <tr>
+                    <td>Trên 60 đến 120</td>
+                    <td>10%</td>
+                  </tr>
+                  <tr>
+                    <td>Trên 120 đến 210</td>
+                    <td>15%</td>
+                  </tr>
+                  <tr>
+                    <td>Trên 210 đến 384</td>
+                    <td>20%</td>
+                  </tr>
+                  <tr>
+                    <td>Trên 384 đến 624</td>
+                    <td>25%</td>
+                  </tr>
+                  <tr>
+                    <td>Trên 624 đến 960</td>
+                    <td>30%</td>
+                  </tr>
+                  <tr>
+                    <td>Trên 960</td>
+                    <td>35%</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div id="ketQuaThue"></div>
+        </div>
+
+        <!-- Exercise 4: Internet Bill -->
+        <div class="exercise">
+          <h3>🌐 Bài 4: Tính Tiền Cáp</h3>
+          <p>
+            <strong>Mô tả:</strong> Tính hóa đơn tiền cáp cho khách hàng (Nhà
+            dân/Doanh nghiệp).
+          </p>
+
+          <div class="grid">
+            <div>
+              <div class="input-group">
+                <label>Mã khách hàng:</label>
+                <input
+                  type="text"
+                  id="maKhachHang"
+                  placeholder="Nhập mã khách hàng"
+                />
+              </div>
+              <div class="input-group">
+                <label>Loại khách hàng:</label>
+                <select id="loaiKhachHang" onchange="toggleKetNoi()">
+                  <option value="nhadan">Nhà dân</option>
+                  <option value="doanhnghiep">Doanh nghiệp</option>
+                </select>
+              </div>
+              <div class="input-group" id="soKetNoiGroup" style="display: none">
+                <label>Số kết nối:</label>
+                <input type="number" id="soKetNoi" min="1" value="1" />
+              </div>
+              <div class="input-group" id="soKenhGroup">
+                <label>Số kênh cao cấp:</label>
+                <input type="number" id="soKenh" min="0" value="0" />
+              </div>
+              <button class="btn" onclick="tinhTienCap()">Tính Tiền Cáp</button>
+            </div>
+            <div>
+              <div
+                class="result"
+                style="
+                  background: #d1ecf1;
+                  border-color: #17a2b8;
+                  color: #0c5460;
+                "
+              >
+                <strong>Bảng giá dịch vụ:</strong><br />
+                <strong>Nhà dân:</strong><br />
+                • Phí xử lý hóa đơn: 4.5$<br />
+                • Phí dịch vụ cơ bản: 20.5$<br />
+                • Thuê kênh cao cấp: 7.5$/kênh<br /><br />
+                <strong>Doanh nghiệp:</strong><br />
+                • Phí xử lý hóa đơn: 15$<br />
+                • Phí dịch vụ cơ bản: 75$ (10 kết nối đầu)<br />
+                • Kết nối thêm: 5$/kết nối<br />
+                • Thuê kênh cao cấp: 50$/kênh
+              </div>
+            </div>
+          </div>
+          <div id="ketQuaTienCap"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Exercise 1: Student Management
+      function tinhDiemTuyenSinh() {
+        const diemChuan = parseFloat(
+          document.getElementById("diemChuan").value
+        );
+        const diem1 = parseFloat(document.getElementById("diem1").value);
+        const diem2 = parseFloat(document.getElementById("diem2").value);
+        const diem3 = parseFloat(document.getElementById("diem3").value);
+        const khuVuc = document.getElementById("khuVuc").value;
+        const doiTuong = document.getElementById("doiTuong").value;
+
+        const resultDiv = document.getElementById("ketQuaTuyenSinh");
+
+        // Validate input
+        if (isNaN(diem1) || isNaN(diem2) || isNaN(diem3) || isNaN(diemChuan)) {
+          resultDiv.innerHTML =
+            '<div class="result error">Vui lòng nhập đầy đủ thông tin!</div>';
+          return;
+        }
+
+        // Check if any subject has score 0
+        if (diem1 === 0 || diem2 === 0 || diem3 === 0) {
+          resultDiv.innerHTML =
+            '<div class="result error">Rớt! Có môn thi bị điểm 0.</div>';
+          return;
+        }
+
+        // Calculate priority points
+        const diemKhuVuc =
+          khuVuc === "A" ? 2 : khuVuc === "B" ? 1 : khuVuc === "C" ? 0.5 : 0;
+        const diemDoiTuong =
+          doiTuong === "1"
+            ? 2.5
+            : doiTuong === "2"
+            ? 1.5
+            : doiTuong === "3"
+            ? 1
+            : 0;
+
+        // Calculate total score
+        const tongDiem = diem1 + diem2 + diem3 + diemKhuVuc + diemDoiTuong;
+
+        // Check admission result
+        const ketQua = tongDiem >= diemChuan ? "Đậu" : "Rớt";
+        const cssClass = tongDiem >= diemChuan ? "result" : "result error";
+
+        resultDiv.innerHTML = `
+                <div class="${cssClass}">
+                    <strong>Kết quả xét tuyển:</strong><br>
+                    📊 Tổng điểm: ${tongDiem.toFixed(1)} điểm<br>
+                    📝 Điểm chuẩn: ${diemChuan} điểm<br>
+                    🎯 Kết quả: <strong>${ketQua}</strong><br>
+                    <small>
+                        Chi tiết: Điểm 3 môn (${diem1} + ${diem2} + ${diem3}) + 
+                        Ưu tiên khu vực (${diemKhuVuc}) + 
+                        Ưu tiên đối tượng (${diemDoiTuong}) = ${tongDiem.toFixed(
+          1
+        )}
+                    </small>
+                </div>
+            `;
+      }
+
+      // Exercise 2: Electricity Bill
+      function tinhTienDien() {
+        const tenKhachHang = document.getElementById("tenKhachHang").value;
+        const soKW = parseFloat(document.getElementById("soKW").value);
+        const resultDiv = document.getElementById("ketQuaTienDien");
+
+        if (!tenKhachHang || isNaN(soKW) || soKW < 0) {
+          resultDiv.innerHTML =
+            '<div class="result error">Vui lòng nhập đầy đủ thông tin hợp lệ!</div>';
+          return;
+        }
+
+        let tienDien = 0;
+        let chiTiet = "";
+
+        if (soKW <= 50) {
+          tienDien = soKW * 500;
+          chiTiet = `${soKW} KW x 500 = ${tienDien.toLocaleString()} VNĐ`;
+        } else if (soKW <= 100) {
+          tienDien = 50 * 500 + (soKW - 50) * 650;
+          chiTiet = `50 KW x 500 + ${
+            soKW - 50
+          } KW x 650 = ${tienDien.toLocaleString()} VNĐ`;
+        } else if (soKW <= 200) {
+          tienDien = 50 * 500 + 50 * 650 + (soKW - 100) * 850;
+          chiTiet = `50 KW x 500 + 50 KW x 650 + ${
+            soKW - 100
+          } KW x 850 = ${tienDien.toLocaleString()} VNĐ`;
+        } else if (soKW <= 350) {
+          tienDien = 50 * 500 + 50 * 650 + 100 * 850 + (soKW - 200) * 1100;
+          chiTiet = `50 KW x 500 + 50 KW x 650 + 100 KW x 850 + ${
+            soKW - 200
+          } KW x 1,100 = ${tienDien.toLocaleString()} VNĐ`;
+        } else {
+          tienDien =
+            50 * 500 + 50 * 650 + 100 * 850 + 150 * 1100 + (soKW - 350) * 1300;
+          chiTiet = `50 KW x 500 + 50 KW x 650 + 100 KW x 850 + 150 KW x 1,100 + ${
+            soKW - 350
+          } KW x 1,300 = ${tienDien.toLocaleString()} VNĐ`;
+        }
+
+        resultDiv.innerHTML = `
+                <div class="result">
+                    <strong>🧾 Hóa đơn tiền điện</strong><br>
+                    👤 Khách hàng: ${tenKhachHang}<br>
+                    ⚡ Số KW tiêu thụ: ${soKW.toLocaleString()} KW<br>
+                    💰 Tổng tiền: <strong>${tienDien.toLocaleString()} VNĐ</strong><br>
+                    <small>Chi tiết: ${chiTiet}</small>
+                </div>
+            `;
+      }
+
+      // Exercise 3: Income Tax
+      function tinhThue() {
+        const hoTen = document.getElementById("hoTen").value;
+        const tongThuNhap = parseFloat(
+          document.getElementById("tongThuNhap").value
+        );
+        const soNguoiPhuThuoc = parseInt(
+          document.getElementById("soNguoiPhuThuoc").value
+        );
+        const resultDiv = document.getElementById("ketQuaThue");
+
+        if (
+          !hoTen ||
+          isNaN(tongThuNhap) ||
+          isNaN(soNguoiPhuThuoc) ||
+          tongThuNhap < 0
+        ) {
+          resultDiv.innerHTML =
+            '<div class="result error">Vui lòng nhập đầy đủ thông tin hợp lệ!</div>';
+          return;
+        }
+
+        // Calculate taxable income
+        const thuNhapChiuThue = tongThuNhap - 4 - soNguoiPhuThuoc * 1.6;
+
+        if (thuNhapChiuThue <= 0) {
+          resultDiv.innerHTML = `
+                <div class="result">
+                    <strong>🧾 Tính thuế thu nhập cá nhân</strong><br>
+                    👤 Họ tên: ${hoTen}<br>
+                    💰 Thu nhập chịu thuế: 0 triệu VNĐ<br>
+                    🏛️ Tiền thuế: <strong>0 VNĐ</strong><br>
+                    <small>Thu nhập không đủ chịu thuế</small>
+                </div>
+            `;
+          return;
+        }
+
+        let tienThue = 0;
+        let chiTiet = "";
+
+        if (thuNhapChiuThue <= 60) {
+          tienThue = thuNhapChiuThue * 0.05;
+          chiTiet = `${thuNhapChiuThue.toFixed(1)} x 5% = ${tienThue.toFixed(
+            1
+          )} triệu VNĐ`;
+        } else if (thuNhapChiuThue <= 120) {
+          tienThue = 60 * 0.05 + (thuNhapChiuThue - 60) * 0.1;
+          chiTiet = `60 x 5% + ${(thuNhapChiuThue - 60).toFixed(
+            1
+          )} x 10% = ${tienThue.toFixed(1)} triệu VNĐ`;
+        } else if (thuNhapChiuThue <= 210) {
+          tienThue = 60 * 0.05 + 60 * 0.1 + (thuNhapChiuThue - 120) * 0.15;
+          chiTiet = `60 x 5% + 60 x 10% + ${(thuNhapChiuThue - 120).toFixed(
+            1
+          )} x 15% = ${tienThue.toFixed(1)} triệu VNĐ`;
+        } else if (thuNhapChiuThue <= 384) {
+          tienThue =
+            60 * 0.05 + 60 * 0.1 + 90 * 0.15 + (thuNhapChiuThue - 210) * 0.2;
+          chiTiet = `60 x 5% + 60 x 10% + 90 x 15% + ${(
+            thuNhapChiuThue - 210
+          ).toFixed(1)} x 20% = ${tienThue.toFixed(1)} triệu VNĐ`;
+        } else if (thuNhapChiuThue <= 624) {
+          tienThue =
+            60 * 0.05 +
+            60 * 0.1 +
+            90 * 0.15 +
+            174 * 0.2 +
+            (thuNhapChiuThue - 384) * 0.25;
+          chiTiet = `60 x 5% + 60 x 10% + 90 x 15% + 174 x 20% + ${(
+            thuNhapChiuThue - 384
+          ).toFixed(1)} x 25% = ${tienThue.toFixed(1)} triệu VNĐ`;
+        } else if (thuNhapChiuThue <= 960) {
+          tienThue =
+            60 * 0.05 +
+            60 * 0.1 +
+            90 * 0.15 +
+            174 * 0.2 +
+            240 * 0.25 +
+            (thuNhapChiuThue - 624) * 0.3;
+          chiTiet = `60 x 5% + 60 x 10% + 90 x 15% + 174 x 20% + 240 x 25% + ${(
+            thuNhapChiuThue - 624
+          ).toFixed(1)} x 30% = ${tienThue.toFixed(1)} triệu VNĐ`;
+        } else {
+          tienThue =
+            60 * 0.05 +
+            60 * 0.1 +
+            90 * 0.15 +
+            174 * 0.2 +
+            240 * 0.25 +
+            336 * 0.3 +
+            (thuNhapChiuThue - 960) * 0.35;
+          chiTiet = `60 x 5% + 60 x 10% + 90 x 15% + 174 x 20% + 240 x 25% + 336 x 30% + ${(
+            thuNhapChiuThue - 960
+          ).toFixed(1)} x 35% = ${tienThue.toFixed(1)} triệu VNĐ`;
+        }
+
+        resultDiv.innerHTML = `
+            <div class="result">
+                <strong>🧾 Tính thuế thu nhập cá nhân</strong><br>
+                👤 Họ tên: ${hoTen}<br>
+                💰 Tổng thu nhập: ${tongThuNhap.toLocaleString()} triệu VNĐ<br>
+                👨‍👩‍👧‍👦 Số người phụ thuộc: ${soNguoiPhuThuoc} người<br>
+                📊 Thu nhập chịu thuế: ${thuNhapChiuThue.toFixed(
+                  1
+                )} triệu VNĐ<br>
+                🏛️ Tiền thuế: <strong>${(
+                  tienThue * 1000000
+                ).toLocaleString()} VNĐ</strong><br>
+                <small>Chi tiết: ${chiTiet}</small>
+            </div>
+        `;
+      }
+      // Exercise 4: Cable Bill
+      function toggleKetNoi() {
+        const loaiKhachHang = document.getElementById("loaiKhachHang").value;
+        const soKetNoiGroup = document.getElementById("soKetNoiGroup");
+
+        if (loaiKhachHang === "doanhnghiep") {
+          soKetNoiGroup.style.display = "block";
+        } else {
+          soKetNoiGroup.style.display = "none";
+        }
+      }
+
+      function tinhTienCap() {
+        const maKhachHang = document.getElementById("maKhachHang").value;
+        const loaiKhachHang = document.getElementById("loaiKhachHang").value;
+        const soKetNoi =
+          parseInt(document.getElementById("soKetNoi").value) || 0;
+        const soKenh = parseInt(document.getElementById("soKenh").value) || 0;
+        const resultDiv = document.getElementById("ketQuaTienCap");
+
+        if (
+          !maKhachHang ||
+          isNaN(soKenh) ||
+          soKenh < 0 ||
+          (loaiKhachHang === "doanhnghiep" && (isNaN(soKetNoi) || soKetNoi < 1))
+        ) {
+          resultDiv.innerHTML =
+            '<div class="result error">Vui lòng nhập đầy đủ thông tin hợp lệ!</div>';
+          return;
+        }
+
+        let tongTien = 0;
+        let chiTiet = "";
+
+        if (loaiKhachHang === "nhadan") {
+          const phiXuLy = 4.5;
+          const phiDichVu = 20.5;
+          const phiKenh = soKenh * 7.5;
+          tongTien = phiXuLy + phiDichVu + phiKenh;
+          chiTiet = `Phí xử lý: $${phiXuLy} + Phí dịch vụ: $${phiDichVu} + Phí kênh cao cấp: ${soKenh} x $7.5 = $${phiKenh}`;
+        } else {
+          const phiXuLy = 15;
+          let phiDichVu = 75; // Basic service fee for first 10 connections
+          const phiKenh = soKenh * 50;
+          let phiKetNoiThem = 0;
+
+          if (soKetNoi > 10) {
+            phiKetNoiThem = (soKetNoi - 10) * 5;
+            phiDichVu += phiKetNoiThem;
+          }
+
+          tongTien = phiXuLy + phiDichVu + phiKenh;
+          chiTiet = `Phí xử lý: $${phiXuLy} + Phí dịch vụ: $${75} ${
+            soKetNoi > 10
+              ? `+ ${soKetNoi - 10} kết nối x $5 = $${phiKetNoiThem}`
+              : ""
+          } + Phí kênh cao cấp: ${soKenh} x $50 = $${phiKenh}`;
+        }
+
+        resultDiv.innerHTML = `
+                <div class="result">
+                    <strong>🧾 Hóa đơn tiền cáp</strong><br>
+                    👤 Mã khách hàng: ${maKhachHang}<br>
+                    🏠 Loại khách hàng: ${
+                      loaiKhachHang === "nhadan" ? "Nhà dân" : "Doanh nghiệp"
+                    }<br>
+                    ${
+                      loaiKhachHang === "doanhnghiep"
+                        ? `🔗 Số kết nối: ${soKetNoi}<br>`
+                        : ""
+                    }
+                    📺 Số kênh cao cấp: ${soKenh}<br>
+                    💰 Tổng tiền: <strong>$${tongTien.toFixed(2)}</strong><br>
+                    <small>Chi tiết: ${chiTiet}</small>
+                </div>
+            `;
+      }
+    </script>
+  </body>
+</html>
